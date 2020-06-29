@@ -220,7 +220,7 @@ Syntactically identical to `conde`, but only the first line that succeeds may co
 
 ### `condu`
 
-`(conde [g1 ...] [g2 ...] ...)`
+`(condu [g1 ...] [g2 ...] ...)`
 
 Syntactically identical to `conde`, but a successful question succeeds only once. "_u_" stands for "_U_ will never *u*se this", as it only appears for 3 pages then vanishes into the void.
 
