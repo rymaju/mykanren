@@ -53,8 +53,6 @@ Returns at most `n` possible solutions that successfully satisfy goal g _and_ go
 
 `(run* q g ...)` or `(run* (q ...) g ...)`
 
-`[List-of Name] Goal (...Goal) -> [List-of [List-of Literal]]`
-
 Returns all possible solutions that successfully satisfy goal g _and_ goals in `...`. If no solutions exist, then recurs infinitely (no value).
 
 Shorthand for `(run #f (q) g ...)`.
