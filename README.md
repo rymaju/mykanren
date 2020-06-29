@@ -2,7 +2,7 @@
 
 ## Racket implementation of minikanren using The Reasoned Schemer Second Edition syntax.
 
-This is the minikanren language as used in The Reasoned Schemer Second Edition. Unlike other implementations in Racket, this implementation includes `defrel`, `conj2`, `disj2`, `conj`, and `disj` to make following the examples in the book slightly easier.
+This is the minikanren language as used in [The Reasoned Schemer Second Edition](https://mitpress.mit.edu/books/reasoned-schemer). Unlike other implementations in Racket, this implementation includes `defrel`, `conj2`, `disj2`, `conj`, and `disj` to make following the examples in the book slightly easier.
 
 To use, import `mykanren.rkt` with `(require "mykanren.rkt")` (see `example.rkt`).
 
