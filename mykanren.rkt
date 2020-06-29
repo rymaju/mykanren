@@ -6,9 +6,9 @@
          ==
          fresh
          conde conda condu
-         disj conj
-         disj2 conj2
-         defrel)
+         disj conj disj2 conj2
+         defrel
+         succeed fail)
 
 ;; a Variable is a (vector Symbol)
 ;; that represents a logic variable

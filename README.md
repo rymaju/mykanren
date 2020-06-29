@@ -8,11 +8,11 @@ To use, import `mykanren.rkt` with `(require "mykanren.rkt")` (see `example.rkt`
 
 Also, feel free to take a look inside `mykanren.rkt`, which has been annotated in `HtDP` style. Note that I have no idea what I'm doing so if something is painfully wrong then edits are more than welcome.
 
-## Provided Functions
+## Provided
 
 - [`run`](#run)
-- [`run*`](#run*)
-- [`==`](#==)
+- [`run*`](#run-star)
+- [`==`](#equiv)
 - [`defrel`](#defrel)
 - [`disj2`](#disj2)
 - [`conj2`](#conj2)
@@ -22,34 +22,36 @@ Also, feel free to take a look inside `mykanren.rkt`, which has been annotated i
 - [`conde`](#conde)
 - [`conda`](#conda)
 - [`condu`](#condu)
+- [`success`](#success)
+- [`fail`](#fail)
 
 ### `run`
 
-`(run n (q) g ...)`
-
-`Natural [List-of Name] Goal (...Goal) -> [List-of [List-of Literal]]`
+`(run n q g ...)` or `(run n (q ...) g ...)`
 
 Returns at most `n` possible solutions that successfully satisfy goal g _and_ goals in `...`. If less than `n` solutions exist, then recurs infinitely (no value).
 
 ```Racket
-(run 1 (q) (== 'olive q)) -> '((olive))
+(run 1 q (== 'olive q)) -> '((olive))
 
-(run 1 (q) (== 'olive q) (== 'oil q)) -> '()
+(run 1 q (== 'olive q) (== 'oil q)) -> '()
 
 (run 1 (q v) (== 'olive q) (== 'oil v)) -> '((olive oil))
 
-(run 4237 (q) (== 'olive q)) -> '((olive))
+(run 4237 q (== 'olive q)) -> '((olive))
 
-(run 0 (q) (== 'olive q)) -> '()
+(run 0 q (== 'olive q)) -> '()
 
 (run 2 (q w) (appendo q w '(1 2 3))) -> '((() (1 2 3))
                                           ((1) (2 3)))
 
 ```
 
+<div id="run-star"/>
+
 ### `run*`
 
-`(run* (q) g ...)`
+`(run* q g ...)` or `(run* (q ...) g ...)`
 
 `[List-of Name] Goal (...Goal) -> [List-of [List-of Literal]]`
 
@@ -58,7 +60,7 @@ Returns all possible solutions that successfully satisfy goal g _and_ goals in `
 Shorthand for `(run #f (q) g ...)`.
 
 ```Racket
-(run* (q) (== 'olive q) (== 'oil q)) -> '()
+(run* q (== 'olive q) (== 'oil q)) -> '()
 
 (run* (q) (== 'olive q)) -> '((olive))
 
@@ -68,6 +70,8 @@ Shorthand for `(run #f (q) g ...)`.
                                         ((1 2 3)
                                         ()))
 ```
+
+<div id="equiv"/>
 
 ### `==`
 
@@ -222,7 +226,7 @@ Syntactically identical to `conde`, but only the first line that succeeds may co
 
 `(conde [g1 ...] [g2 ...] ...)`
 
-Syntactically identical to `conde`, but a successful question succeeds only once. "_u_" stands for "_U_ will never *u*se this", as it only appears for 3 pages then vanishes into the void.
+Syntactically identical to `conde`, but a successful question succeeds only once. "_u_" stands for "_U_ will never *u*se this", as it only appears for 3 pages then vanishes.
 
 Just kidding, it actually corresponds to Mercury's commited choice.
 
@@ -232,4 +236,20 @@ Just kidding, it actually corresponds to Mercury's commited choice.
     [(appendo q w '(1 2 3))]
     [(== 'oil x)]))          -> '((() (1 2 3) _0))
 
+```
+
+### `success`
+
+Shorthand for `(== #t #t)`, represents a goal that is always successful.
+
+```Racket
+(run* q succeed) -> '(_0)
+```
+
+### `fail`
+
+Shorthand for `(== #f #t)`, represents a goal that always fails.
+
+```Racket
+(run* q fail) -> '()
 ```

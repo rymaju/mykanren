@@ -1,9 +1,7 @@
 #lang racket
 (require "mykanren.rkt")
-(require rackunit)
-
-
-
+(require (except-in rackunit fail))
+; "fail" is already defined in rackunit, so you need to use except-in when importing rackunit
 
 (check-equal?(run 1 (q) (== 'olive q) (== 'oil q)) '())
 
